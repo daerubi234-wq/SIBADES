@@ -252,27 +252,29 @@ class Auth {
     }
 
     /**
-     * Send OTP via WhatsApp (placeholder)
+     * Send OTP via WhatsApp using Fonnte service
      */
     public static function sendOTPViaWhatsApp($no_wa, $otp) {
         try {
-            $apiKey = Config::get('WHATSAPP_API_KEY');
-            $gatewayUrl = Config::get('WHATSAPP_GATEWAY_URL');
+            require_once __DIR__ . '/../services/WhatsAppService.php';
+            
+            $whatsapp = new WhatsAppService();
+            $result = $whatsapp->sendOTP($no_wa, $otp);
 
-            if (!$apiKey || !$gatewayUrl) {
-                error_log("WhatsApp API not configured");
-                return ['success' => false, 'message' => 'WhatsApp gateway tidak dikonfigurasi'];
+            // Log the result
+            if ($result['success']) {
+                error_log("OTP {$otp} successfully sent to {$no_wa}");
+            } else {
+                error_log("OTP send failed for {$no_wa}: " . json_encode($result));
             }
 
-            // TODO: Implement actual WhatsApp API call
-            // For now, just log it
-            error_log("OTP {$otp} sent to {$no_wa}");
-
-            // Placeholder: simulate successful send
-            return ['success' => true, 'message' => 'OTP berhasil dikirim ke WhatsApp'];
+            return $result;
         } catch (Exception $e) {
             error_log("Send OTP WhatsApp error: " . $e->getMessage());
-            return ['success' => false, 'message' => 'Gagal mengirim OTP'];
+            return [
+                'success' => false,
+                'message' => 'Gagal mengirim OTP: ' . $e->getMessage()
+            ];
         }
     }
 

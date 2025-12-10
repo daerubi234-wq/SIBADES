@@ -62,7 +62,13 @@ class Config {
     public const CLOUD_API_KEY = 'CLOUD_API_KEY';
     public const CLOUD_FOLDER_ID = 'CLOUD_FOLDER_ID';
 
-    // WhatsApp Gateway
+    // WhatsApp Gateway - Fonnte (Free)
+    // Get API key from: https://fonnte.com (free account with 20 messages/day)
+    public const FONNTE_ENABLED = true;
+    public const FONNTE_API_KEY = 'FONNTE_API_KEY';
+    public const FONNTE_GATEWAY_URL = 'https://api.fonnte.com/send';
+
+    // Legacy WhatsApp Settings (deprecated)
     public const WHATSAPP_ENABLED = true;
     public const WHATSAPP_API_KEY = 'WHATSAPP_API_KEY';
     public const WHATSAPP_GATEWAY_URL = 'WHATSAPP_GATEWAY_URL';
