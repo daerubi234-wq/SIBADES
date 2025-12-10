@@ -36,7 +36,8 @@ document.getElementById('otpForm').addEventListener('submit', function(e) {
     
     fetch('/api/auth/verify-otp', {
         method: 'POST',
-        body: formData
+        body: formData,
+        credentials: 'include'
     })
     .then(response => response.json())
     .then(data => {

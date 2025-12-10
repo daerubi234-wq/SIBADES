@@ -45,7 +45,8 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     
     fetch('/api/auth/login', {
         method: 'POST',
-        body: formData
+        body: formData,
+        credentials: 'include'
     })
     .then(response => response.json())
     .then(data => {

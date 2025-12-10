@@ -67,7 +67,8 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
     
     fetch('/api/auth/register', {
         method: 'POST',
-        body: formData
+        body: formData,
+        credentials: 'include'
     })
     .then(response => response.json())
     .then(data => {
