@@ -16,6 +16,23 @@ ini_set('log_errors', 1);
 // `public/index.php` lives inside `public/`, so application files are one level up
 define('APP_PATH', __DIR__ . '/../application/');
 define('PUBLIC_PATH', __DIR__ . '/');
+define('ROOT_PATH', __DIR__ . '/../');
+
+// Load environment variables from .env
+$envFile = ROOT_PATH . '.env';
+if (file_exists($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
+            list($key, $value) = explode('=', $line, 2);
+            $key = trim($key);
+            $value = trim($value);
+            if (!getenv($key)) {
+                putenv("$key=$value");
+            }
+        }
+    }
+}
 
 // Load configuration
 require_once APP_PATH . 'config/Config.php';
